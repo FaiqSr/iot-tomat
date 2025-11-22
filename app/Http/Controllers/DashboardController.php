@@ -18,12 +18,19 @@ class DashboardController extends Controller
 
     public function showToolsAlat()
     {
-        return view('page.dashboard.tools.alat');
+        $user = auth()->user();
+        $tools = $user ? $user->tools()->get() : collect();
+
+        return view('page.dashboard.tools.alat', compact('tools'));
     }
 
     public function showToolsSensor()
     {
-        return view('page.dashboard.tools.sensor');
+        $user = auth()->user();
+        $sensors = $user ? $user->sensors()->get() : collect();
+        $groups = \App\Models\SensorGroup::all();
+
+        return view('page.dashboard.tools.sensor', compact('sensors', 'groups'));
     }
 
     public function showProfile()

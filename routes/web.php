@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
 
 // ---------------------------
 // Public Routes
@@ -37,6 +38,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/tools/alat', [DashboardController::class, 'showToolsAlat'])->name('.tools.alat');
         Route::get('/tools/sensor', [DashboardController::class, 'showToolsSensor'])->name('.tools.sensor');
         Route::get('/profile', [DashboardController::class, 'showProfile'])->name('.profile');
+        Route::put('/profile', [UserController::class, 'updateProfile'])->name('.profile.update');
+        Route::put('/profile/address', [UserController::class, 'updateAddress'])->name('.profile.address.update');
     });
 
 });

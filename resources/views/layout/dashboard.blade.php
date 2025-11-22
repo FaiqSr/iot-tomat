@@ -729,7 +729,6 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
             <main>
                 <div class="p-4 mx-auto max-w-(--breakpoint-2xl) md:p-6">
                     @yield('content')
-
                 </div>
             </main>
             <!-- ===== Main Content End ===== -->
