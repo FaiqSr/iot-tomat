@@ -29,7 +29,10 @@ class MarkInactiveSensors extends Command
     {
         $this->info('Running sensor inactivity check...');
 
-        $threshold = Carbon::now('Asia/Jakarta')->subMinute();
+        $timeout = intval(env('SENSOR_INACTIVE_SECONDS', 60));
+        $this->info("Using timeout={$timeout} seconds (SENSOR_INACTIVE_SECONDS)");
+
+        $threshold = Carbon::now('Asia/Jakarta')->subSeconds($timeout);
 
         // Mark sensors as inactive where last_seen_at is older than threshold
         $affected = Sensor::where('status', 'active')

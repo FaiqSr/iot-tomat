@@ -6,15 +6,16 @@ import { getAnalytics } from "firebase/analytics";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Values are read from Vite env (VITE_FIREBASE_*) so they can be configured per-environment
 const firebaseConfig = {
-  apiKey: "AIzaSyBklilkdDe19SD5V9ixYHLb76_Rfv-fRH4",
-  authDomain: "cibeng-347a6.firebaseapp.com",
-  databaseURL: "https://cibeng-347a6-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "cibeng-347a6",
-  storageBucket: "cibeng-347a6.firebasestorage.app",
-  messagingSenderId: "620338273880",
-  appId: "1:620338273880:web:59d4a6f5606f7f2074342d",
-  measurementId: "G-E4MFN9DFDY"
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID,
+    measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
