@@ -17,6 +17,7 @@ class UserController extends Controller
     {
         $user = $request->user();
 
+
         $data = $request->validate([
             'first_name' => 'required|string|max:100',
             'last_name' => 'nullable|string|max:100',
@@ -44,17 +45,19 @@ class UserController extends Controller
     {
         $user = $request->user();
 
+
         $data = $request->validate([
             'country' => 'nullable|string|max:100',
             'province' => 'nullable|string|max:100',
             'city' => 'nullable|string|max:100',
-            'postal_code' => 'nullable|numeric|max:20',
+            'postal_code' => 'nullable|string|max:20',
         ]);
 
         UserAddress::updateOrCreate(
             ['user_id' => $user->id],
             $data
         );
+
 
         return back()->with('success', 'Address updated successfully.');
     }

@@ -2,32 +2,12 @@
 @section('title', 'Profile - Tomat Guard')
 @section('page', 'profile')
 @section('x-data', "'isProfileInfoModal': false, 'isProfileAddressModal': false ")
+
+@section('breadcrumb', 'Profile')
+@section('pageName', 'Profile')
+
 @section('content')
 
-    <!-- Breadcrumb Start -->
-    <div x-data="{ pageName: `Profile` }">
-        <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
-            <h2 class="text-xl font-semibold text-gray-800 dark:text-white/90" x-text="pageName"></h2>
-
-            <nav>
-                <ol class="flex items-center gap-1.5">
-                    <li>
-                        <a class="inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400"
-                            href="{{ route('dashboard') }}">
-                            Home
-                            <svg class="stroke-current" width="17" height="16" viewBox="0 0 17 16" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path d="M6.0765 12.667L10.2432 8.50033L6.0765 4.33366" stroke="" stroke-width="1.2"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </a>
-                    </li>
-                    <li class="text-sm text-gray-800 dark:text-white/90" x-text="pageName"></li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-    <!-- Breadcrumb End -->
 
     <div class="rounded-2xl border border-gray-200 bg-white p-5 lg:p-6 dark:border-gray-800 dark:bg-white/[0.03]">
         <h3 class="mb-5 text-lg font-semibold text-gray-800 lg:mb-7 dark:text-white/90">
@@ -38,7 +18,8 @@
             <div class="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
                 <div class="flex w-full flex-col items-center gap-6 xl:flex-row">
                     <div class="h-20 w-20 overflow-hidden rounded-full border border-gray-200 dark:border-gray-800">
-                        <img src="{{ auth()->user()->profile_picture ? url(auth()->user()->profile_picture) : asset('images/profile/owner.jpg') }}"
+                        <img id="profileAvatarImg"
+                            src="{{ auth()->user()->profile_picture ? url(auth()->user()->profile_picture) : asset('images/profile/owner.jpg') }}"
                             alt="user" />
                     </div>
                     <div class="order-3 xl:order-2">
@@ -159,7 +140,7 @@
                                 City/State
                             </p>
                             <p class="text-sm font-medium text-gray-800 dark:text-white/90">
-                                {{ auth()->user()->address->city . ', ' . auth()->user()->address->province }}
+                                {{ (auth()->user()->address->city ?? '- ') . ', ' . (auth()->user()->address->province ?? '-') }}
                             </p>
                         </div>
 
@@ -188,6 +169,23 @@
         </div>
     </div>
 
+@endsection
+@section('scripts')
+    <script>
+        (function() {
+            const input = document.getElementById('profile_picture_input');
+            const modalPreview = document.getElementById('modalProfilePreview');
+            const pageAvatar = document.getElementById('profileAvatarImg');
+            if (!input) return;
+            input.addEventListener('change', (e) => {
+                const file = e.target.files && e.target.files[0];
+                if (!file) return;
+                const url = URL.createObjectURL(file);
+                if (modalPreview) modalPreview.src = url;
+                if (pageAvatar) pageAvatar.src = url;
+            });
+        })();
+    </script>
 @endsection
 @section('modals')
     <!-- BEGIN MODAL -->
@@ -222,6 +220,20 @@
                         <h5 class="mb-5 text-lg font-medium text-gray-800 lg:mb-6 dark:text-white/90">
                             Personal Information
                         </h5>
+
+                        <div class="mb-4 flex items-center gap-4">
+                            <div class="h-16 w-16 overflow-hidden rounded-full border border-gray-200 dark:border-gray-800">
+                                <img id="modalProfilePreview"
+                                    src="{{ auth()->user()->profile_picture ? url(auth()->user()->profile_picture) : asset('images/profile/owner.jpg') }}"
+                                    alt="preview" />
+                            </div>
+                            <div class="flex-1">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-400">Photo</label>
+                                <input id="profile_picture_input" type="file" name="profile_picture" accept="image/*"
+                                    class="mt-1 block w-full text-sm text-gray-900 bg-white border border-gray-200 rounded-lg file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:bg-blue-600 file:text-white" />
+                                <p class="text-xs text-gray-500 mt-1">Max size 2MB. JPG/PNG.</p>
+                            </div>
+                        </div>
 
                         <div class="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
                             <div class="col-span-2 lg:col-span-1">
