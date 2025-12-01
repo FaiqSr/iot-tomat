@@ -15,7 +15,8 @@
         "vite": "^7.0.7"
     },
     "dependencies": {
+        "apexcharts": "^3.36.3",
         "firebase": "^12.6.0",
-        "apexcharts": "^3.36.3"
+        "socket.io-client": "^4.8.1"
     }
 }
