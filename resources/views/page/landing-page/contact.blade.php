@@ -15,7 +15,7 @@
     </section>
 
     <section class="py-16 bg-white">
-        <div class="container mx-auto px-4 grid md:grid-cols-2 gap-12">
+        <div class="container mx-auto px-4 grid gap-12">
 
             <!-- Contact Info -->
             <div class="space-y-8">
@@ -56,43 +56,6 @@
                 </div>
             </div>
 
-            <!-- Form -->
-            <div class="p-8 bg-[#F5F6F7] border border-[#E3E8EE] shadow-lg rounded-2xl">
-                <h2 class="text-2xl font-bold text-[#4F6F8F] mb-6">Kirim Pesan</h2>
-
-                <form action="/send-message" method="POST" class="space-y-6">
-                    @csrf
-
-                    <div>
-                        <label class="block text-[#4B5563] font-semibold mb-1">Nama Lengkap</label>
-                        <input type="text" name="nama" required
-                            class="w-full p-3 border border-[#E3E8EE] rounded-xl focus:ring-2 focus:ring-[#4F6F8F] focus:outline-none bg-white">
-                    </div>
-
-                    <div>
-                        <label class="block text-[#4B5563] font-semibold mb-1">Email</label>
-                        <input type="email" name="email" required
-                            class="w-full p-3 border border-[#E3E8EE] rounded-xl focus:ring-2 focus:ring-[#4F6F8F] focus:outline-none bg-white">
-                    </div>
-
-                    <div>
-                        <label class="block text-[#4B5563] font-semibold mb-1">Subjek</label>
-                        <input type="text" name="subjek" required
-                            class="w-full p-3 border border-[#E3E8EE] rounded-xl focus:ring-2 focus:ring-[#4F6F8F] focus:outline-none bg-white">
-                    </div>
-
-                    <div>
-                        <label class="block text-[#4B5563] font-semibold mb-1">Pesan</label>
-                        <textarea name="pesan" rows="5" required
-                            class="w-full p-3 border border-[#E3E8EE] rounded-xl focus:ring-2 focus:ring-[#4F6F8F] focus:outline-none bg-white"></textarea>
-                    </div>
-
-                    <button type="submit"
-                        class="w-full py-3 bg-[#4F6F8F] text-white rounded-xl font-semibold shadow-md hover:bg-[#3b546d] transition">
-                        Kirim Pesan
-                    </button>
-                </form>
-            </div>
 
         </div>
     </section>

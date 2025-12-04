@@ -65,20 +65,27 @@
     <section class="py-16 bg-white">
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-3xl font-bold text-[#4F6F8F] mb-8">Tim Pengembang</h2>
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
-                <div class="p-2 rounded-sm shadow-lg bg-[#F5F6F7] border border-[#E3E8EE] w-[300px] h-[200px] mx-auto">
-                    <section class="w-full mb-2">
+            <div class="flex flex-wrap justify-center gap-20">
+                <div class="p-2 rounded-sm shadow-lg bg-[#F5F6F7] border border-[#E3E8EE] w-[300px] h-[400px] mx-auto">
+                    <section class="w-full h-96 mb-2">
                         <img src="{{ url('/images/kelompok/arif.jpeg') }}" alt=""
                             class="object-cover w-full h-full">
                     </section>
                     <h4 class="text-xl font-semibold text-[#4F6F8F]">Arif Sanda</h4>
-                    <p class="text-gray-600">Web Developer</p>
+                    <p class="text-gray-600">WSeb Developer</p>
                 </div>
-                <div class="p-2 rounded-sm shadow-lg bg-[#F5F6F7] border border-[#E3E8EE] w-[300px] h-[200px] mx-auto">
-                    <section class="w-full mb-2 h-[100px]">
+                <div class="p-2 rounded-sm shadow-lg bg-[#F5F6F7] border border-[#E3E8EE] w-[300px] h-[400px] mx-auto">
+                    <section class="w-full h-96 mb-2">
                         <img src="{{ url('/images/kelompok/fad.jpg') }}" alt="" class="object-cover w-full h-full">
                     </section>
-                    <h4 class="text-xl font-semibold text-[#4F6F8F]">Fadhil Alfaruqj</h4>
+                    <h4 class="text-xl font-semibold text-[#4F6F8F]">Reynaldi Simamora</h4>
+                    <p class="text-gray-600">ML Engineer</p>
+                </div>
+                <div class="p-2 rounded-sm shadow-lg bg-[#F5F6F7] border border-[#E3E8EE] w-[300px] h-[400px] mx-auto">
+                    <section class="w-full h-96 mb-2">
+                        <img src="{{ url('/images/kelompok/fad.jpg') }}" alt="" class="object-cover w-full h-full">
+                    </section>
+                    <h4 class="text-xl font-semibold text-[#4F6F8F]">Fadhil Alfaruq</h4>
                     <p class="text-gray-600">3D Developer</p>
                 </div>
             </div>
