@@ -76,7 +76,8 @@
                 </div>
                 <div class="p-2 rounded-sm shadow-lg bg-[#F5F6F7] border border-[#E3E8EE] w-[300px] h-[400px] mx-auto">
                     <section class="w-full h-96 mb-2">
-                        <img src="{{ url('/images/kelompok/fad.jpg') }}" alt="" class="object-cover w-full h-full">
+                        <img src="{{ url('/images/kelompok/simamora.png') }}" alt=""
+                            class="object-cover w-full h-full">
                     </section>
                     <h4 class="text-xl font-semibold text-[#4F6F8F]">Reynaldi Simamora</h4>
                     <p class="text-gray-600">ML Engineer</p>
