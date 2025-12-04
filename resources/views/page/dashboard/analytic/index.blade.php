@@ -283,6 +283,10 @@
 @section('scripts')
     {{-- Import Socket.IO Client --}}
     <script type="module">
+        @php
+            $mlPredictUrlRf = env('ML_PREDICT_URL_RF', 'http://127.0.0.1:5000/predict_rf');
+        @endphp
+
         import {
             io
         } from "https://cdn.socket.io/4.7.2/socket.io.esm.min.js";
@@ -290,7 +294,7 @@
         // --- ALPINE JS COMPONENT FOR YOLO VIEWER ---
         document.addEventListener('alpine:init', () => {
             Alpine.data('yoloViewer', () => ({
-                serverUrl: 'http://localhost:5000', // Ganti dengan URL Flask Server Anda
+                serverUrl: '{{ $mlPredictUrlRf }}', // Ganti dengan URL Flask Server Anda
                 deviceId: '', // will be set from selected sensor radio
                 status: 'disconnected',
                 annotatedSrc: null,
@@ -413,8 +417,8 @@
             };
 
             try {
-                // Request ke Flask Server
-                const response = await fetch('http://localhost:5000/predict_rf', {
+
+                const response = await fetch('/predict_rf', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
