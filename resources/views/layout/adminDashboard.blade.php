@@ -1,7 +1,9 @@
 <!doctype html>
 <html lang="en" class="scroll-smooth" x-data="{ 'darkMode': false }" x-init="darkMode = JSON.parse(localStorage.getItem('darkMode'));
 $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
-    :class="{ 'dark': darkMode === true } @yield('x-init')">
+    :class="{
+        'dark': darkMode === true
+    }">
 
 <head>
     <meta charset="UTF-8" />
@@ -12,7 +14,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
         @yield('title')
     </title>
     @yield('style')
-    @vite(['resources/css/app.css'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="icon" href="favicon.ico">
     <link href="{{ asset('tailadmin/style.css') }}" rel="stylesheet">
 </head>
@@ -35,7 +37,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
             <!-- SIDEBAR HEADER -->
             <div :class="sidebarToggle ? 'justify-center' : 'justify-between'"
                 class="flex items-center gap-2 pt-8 sidebar-header pb-7">
-                <a href="{{ route('dashboard') }}">
+                <a href="{{ route('admin') }}">
                     <span class="logo" :class="sidebarToggle ? 'hidden' : ''">
                         {{-- <img class="dark:hidden" src="src/images/logo/logo.svg" alt="Logo" /> --}}
                         {{-- <img class="hidden dark:block" src="src/images/logo/logo-dark.svg" alt="Logo" /> --}}
@@ -67,178 +69,61 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                         </h3>
 
                         <ul class="flex flex-col gap-4 mb-6">
-                            <!-- Menu Item Dashboard -->
+                            <!-- Admin Dashboard -->
                             <li>
-                                <a href="{{ route('dashboard') }}"
-                                    @click.prevent="selected = (selected === 'Dashboard' ? '':'Dashboard')"
-                                    class="menu-item group"
-                                    :class="(selected === 'Dashboard') || (
-                                        page === 'dashboardAlat' ||
-                                        page === 'dashboardSensor') ?
-                                    'menu-item-active' : 'menu-item-inactive'">
-                                    <svg :class="(selected === 'Dashboard') || (
-                                        page === 'dashboardAlat' ||
-                                        page === 'dashboardSensor') ?
-                                    'menu-item-icon-active' :
-                                    'menu-item-icon-inactive'"
-                                        width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M5.5 3.25C4.25736 3.25 3.25 4.25736 3.25 5.5V8.99998C3.25 10.2426 4.25736 11.25 5.5 11.25H9C10.2426 11.25 11.25 10.2426 11.25 8.99998V5.5C11.25 4.25736 10.2426 3.25 9 3.25H5.5ZM4.75 5.5C4.75 5.08579 5.08579 4.75 5.5 4.75H9C9.41421 4.75 9.75 5.08579 9.75 5.5V8.99998C9.75 9.41419 9.41421 9.74998 9 9.74998H5.5C5.08579 9.74998 4.75 9.41419 4.75 8.99998V5.5ZM5.5 12.75C4.25736 12.75 3.25 13.7574 3.25 15V18.5C3.25 19.7426 4.25736 20.75 5.5 20.75H9C10.2426 20.75 11.25 19.7427 11.25 18.5V15C11.25 13.7574 10.2426 12.75 9 12.75H5.5ZM4.75 15C4.75 14.5858 5.08579 14.25 5.5 14.25H9C9.41421 14.25 9.75 14.5858 9.75 15V18.5C9.75 18.9142 9.41421 19.25 9 19.25H5.5C5.08579 19.25 4.75 18.9142 4.75 18.5V15ZM12.75 5.5C12.75 4.25736 13.7574 3.25 15 3.25H18.5C19.7426 3.25 20.75 4.25736 20.75 5.5V8.99998C20.75 10.2426 19.7426 11.25 18.5 11.25H15C13.7574 11.25 12.75 10.2426 12.75 8.99998V5.5ZM15 4.75C14.5858 4.75 14.25 5.08579 14.25 5.5V8.99998C14.25 9.41419 14.5858 9.74998 15 9.74998H18.5C18.9142 9.74998 19.25 9.41419 19.25 8.99998V5.5C19.25 5.08579 18.9142 4.75 18.5 4.75H15ZM15 12.75C13.7574 12.75 12.75 13.7574 12.75 15V18.5C12.75 19.7426 13.7574 20.75 15 20.75H18.5C19.7426 20.75 20.75 19.7427 20.75 18.5V15C20.75 13.7574 19.7426 12.75 18.5 12.75H15ZM14.25 15C14.25 14.5858 14.5858 14.25 15 14.25H18.5C18.9142 14.25 19.25 14.5858 19.25 15V18.5C19.25 18.9142 18.9142 19.25 18.5 19.25H15C14.5858 19.25 14.25 18.9142 14.25 18.5V15Z"
+                                <a href="{{ route('admin') }}" class="menu-item group"
+                                    :class="page === 'admin' ? 'menu-item-active' : 'menu-item-inactive'">
+                                    <svg class="menu-item-icon-inactive" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"
                                             fill="" />
                                     </svg>
-
-                                    <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
-                                        Dashboard
-                                    </span>
-
-                                    <svg class="menu-item-arrow"
-                                        :class="[(selected === 'Dashboard') ?
-                                            'menu-item-arrow-active' :
-                                            'menu-item-arrow-inactive',
-                                            sidebarToggle ? 'lg:hidden' : ''
-                                        ]"
-                                        width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M4.79175 7.39584L10.0001 12.6042L15.2084 7.39585" stroke=""
-                                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
+                                    <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">Admin</span>
                                 </a>
-
-                                <!-- Dropdown Menu Start -->
-                                <div class="overflow-hidden transform translate"
-                                    :class="(selected === 'Dashboard') ? 'block' :
-                                    'hidden'">
-                                    <ul :class="sidebarToggle ? 'lg:hidden' : 'flex'"
-                                        class="flex flex-col gap-1 mt-2 menu-dropdown pl-9">
-                                        <li>
-                                            <a href="{{ route('dashboard') }}" class="menu-dropdown-item group"
-                                                :class="page === 'dashboard' ?
-                                                    'menu-dropdown-item-active' :
-                                                    'menu-dropdown-item-inactive'">
-                                                Alat
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <!-- Dropdown Menu End -->
                             </li>
-                            <!-- Menu Item Dashboard -->
 
-                            <!-- Menu Item Tools -->
+                            <!-- Users -->
                             <li>
-                                <a href="#" @click.prevent="selected = (selected === 'Tools' ? '':'Tools')"
-                                    class="menu-item group"
-                                    :class="(selected === 'Tools') || (
-                                        page === 'toolsSensor' ||
-                                        page === 'toolsAlat') ?
-                                    'menu-item-active' :
-                                    'menu-item-inactive'">
-                                    <svg :class="(selected === 'Tools') || (
-                                        page === 'toolsSensor' ||
-                                        page === 'toolsAlat') ?
-                                    'menu-item-icon-active' :
-                                    'menu-item-icon-inactive'"
-                                        width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M5.5 3.25C4.25736 3.25 3.25 4.25736 3.25 5.5V18.5C3.25 19.7426 4.25736 20.75 5.5 20.75H18.5001C19.7427 20.75 20.7501 19.7426 20.7501 18.5V5.5C20.7501 4.25736 19.7427 3.25 18.5001 3.25H5.5ZM4.75 5.5C4.75 5.08579 5.08579 4.75 5.5 4.75H18.5001C18.9143 4.75 19.2501 5.08579 19.2501 5.5V18.5C19.2501 18.9142 18.9143 19.25 18.5001 19.25H5.5C5.08579 19.25 4.75 18.9142 4.75 18.5V5.5ZM6.25005 9.7143C6.25005 9.30008 6.58583 8.9643 7.00005 8.9643L17 8.96429C17.4143 8.96429 17.75 9.30008 17.75 9.71429C17.75 10.1285 17.4143 10.4643 17 10.4643L7.00005 10.4643C6.58583 10.4643 6.25005 10.1285 6.25005 9.7143ZM6.25005 14.2857C6.25005 13.8715 6.58583 13.5357 7.00005 13.5357H17C17.4143 13.5357 17.75 13.8715 17.75 14.2857C17.75 14.6999 17.4143 15.0357 17 15.0357H7.00005C6.58583 15.0357 6.25005 14.6999 6.25005 14.2857Z"
+                                <a href="{{ route('admin.users') }}" class="menu-item group"
+                                    :class="page === 'admin.users' ? 'menu-item-active' : 'menu-item-inactive'">
+                                    <svg class="menu-item-icon-inactive" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M16 11c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm-8 0c1.657 0 3-1.343 3-3S9.657 5 8 5 5 6.343 5 8s1.343 3 3 3zm0 2c-2.667 0-8 1.333-8 4v3h14v-3c0-2.667-5.333-4-6-4zm8 0c-.29 0-.593.02-.906.062C17.574 15.345 20 16.5 20 18v3h3v-3c0-2.667-5.333-4-6-4z"
                                             fill="" />
                                     </svg>
-
-                                    <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
-                                        Tools
-                                    </span>
-
-                                    <svg class="menu-item-arrow absolute right-2.5 top-1/2 -translate-y-1/2 stroke-current"
-                                        :class="[(selected === 'Tools') ?
-                                            'menu-item-arrow-active' :
-                                            'menu-item-arrow-inactive',
-                                            sidebarToggle ? 'lg:hidden' : ''
-                                        ]"
-                                        width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M4.79175 7.39584L10.0001 12.6042L15.2084 7.39585" stroke=""
-                                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
+                                    <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">Users</span>
                                 </a>
-
-                                <!-- Dropdown Menu Start -->
-                                <div class="overflow-hidden transform translate"
-                                    :class="(selected === 'Tools') ? 'block' :
-                                    'hidden'">
-                                    <ul :class="sidebarToggle ? 'lg:hidden' : 'flex'"
-                                        class="flex flex-col gap-1 mt-2 menu-dropdown pl-9">
-                                        <li>
-                                            <a href="{{ route('dashboard.tools.sensor') }}"
-                                                class="menu-dropdown-item group"
-                                                :class="page === 'toolsSensor' ?
-                                                    'menu-dropdown-item-active' :
-                                                    'menu-dropdown-item-inactive'">
-                                                Sensors
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <!-- Dropdown Menu End -->
                             </li>
-                            <!-- Menu Item Tools -->
 
-                            {{-- Analytics --}}
-
-
+                            <!-- Sensors -->
                             <li>
-                                <a href="{{ route('dashboard.analytic') }}"
-                                    @click="selected = (selected === 'Analytics' ? '':'Analytics')"
-                                    class="menu-item group"
-                                    :class="(selected === 'Analytics') && (
-                                        page === 'analytics') ?
-                                    'menu-item-active' :
-                                    'menu-item-inactive'">
-                                    <svg :class="(selected === 'Analytics') || (
-                                        page === 'analytics') ?
-                                    'menu-item-icon-active' :
-                                    'menu-item-icon-inactive'"
-                                        width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M12 2C11.5858 2 11.25 2.33579 11.25 2.75V12C11.25 12.4142 11.5858 12.75 12 12.75H21.25C21.6642 12.75 22 12.4142 22 12C22 6.47715 17.5228 2 12 2ZM12.75 11.25V3.53263C13.2645 3.57761 13.7659 3.66843 14.25 3.80098V3.80099C15.6929 4.19606 16.9827 4.96184 18.0104 5.98959C19.0382 7.01734 19.8039 8.30707 20.199 9.75C20.3316 10.2341 20.4224 10.7355 20.4674 11.25H12.75ZM2 12C2 7.25083 5.31065 3.27489 9.75 2.25415V3.80099C6.14748 4.78734 3.5 8.0845 3.5 12C3.5 16.6944 7.30558 20.5 12 20.5C15.9155 20.5 19.2127 17.8525 20.199 14.25H21.7459C20.7251 18.6894 16.7492 22 12 22C6.47715 22 2 17.5229 2 12Z"
+                                <a href="{{ route('admin.sensors') }}" class="menu-item group"
+                                    :class="page === 'admin.sensors' ? 'menu-item-active' : 'menu-item-inactive'">
+                                    <svg class="menu-item-icon-inactive" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12 2L15 8l6 .5-4.5 3.5L19 20l-7-4.5L5 20l1.5-8L2 8.5 8 8 12 2z"
                                             fill="" />
                                     </svg>
-
-                                    <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
-                                        Analytics
-                                    </span>
+                                    <span class="menu-item-text"
+                                        :class="sidebarToggle ? 'lg:hidden' : ''">Sensors</span>
                                 </a>
                             </li>
-                            {{-- Analytics --}}
 
-                            <!-- Menu Item Profile -->
+                            <!-- Profile / Logout -->
                             <li>
-                                <a href="{{ route('dashboard.profile') }}"
-                                    @click="selected = (selected === 'Profile' ? '':'Profile')"
-                                    class="menu-item group"
-                                    :class="(selected === 'Profile') && (
-                                        page === 'profile') ?
-                                    'menu-item-active' :
-                                    'menu-item-inactive'">
-                                    <svg :class="(selected === 'Profile') && (
-                                        page === 'profile') ?
-                                    'menu-item-icon-active' :
-                                    'menu-item-icon-inactive'"
-                                        width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M12 3.5C7.30558 3.5 3.5 7.30558 3.5 12C3.5 14.1526 4.3002 16.1184 5.61936 17.616C6.17279 15.3096 8.24852 13.5955 10.7246 13.5955H13.2746C15.7509 13.5955 17.8268 15.31 18.38 17.6167C19.6996 16.119 20.5 14.153 20.5 12C20.5 7.30558 16.6944 3.5 12 3.5ZM17.0246 18.8566V18.8455C17.0246 16.7744 15.3457 15.0955 13.2746 15.0955H10.7246C8.65354 15.0955 6.97461 16.7744 6.97461 18.8455V18.856C8.38223 19.8895 10.1198 20.5 12 20.5C13.8798 20.5 15.6171 19.8898 17.0246 18.8566ZM2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12ZM11.9991 7.25C10.8847 7.25 9.98126 8.15342 9.98126 9.26784C9.98126 10.3823 10.8847 11.2857 11.9991 11.2857C13.1135 11.2857 14.0169 10.3823 14.0169 9.26784C14.0169 8.15342 13.1135 7.25 11.9991 7.25ZM8.48126 9.26784C8.48126 7.32499 10.0563 5.75 11.9991 5.75C13.9419 5.75 15.5169 7.32499 15.5169 9.26784C15.5169 11.2107 13.9419 12.7857 11.9991 12.7857C10.0563 12.7857 8.48126 11.2107 8.48126 9.26784Z"
+                                <a href="{{ route('dashboard.profile') }}" class="menu-item group"
+                                    :class="page === 'profile' ? 'menu-item-active' : 'menu-item-inactive'">
+                                    <svg class="menu-item-icon-inactive" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5zm0 2c-4 0-8 2-8 6v2h16v-2c0-4-4-6-8-6z"
                                             fill="" />
                                     </svg>
-
-                                    <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
-                                        User Profile
-                                    </span>
+                                    <span class="menu-item-text"
+                                        :class="sidebarToggle ? 'lg:hidden' : ''">Profile</span>
                                 </a>
                             </li>
-                            <!-- Menu Item Profile -->
                         </ul>
                     </div>
 
@@ -264,12 +149,11 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                         <!-- Hamburger Toggle BTN -->
                         <button
                             :class="sidebarToggle ?
-                                'lg:bg-transparent dark:lg:bg-transparent bg-gray-100 dark:bg-gray-800' :
-                                ''"
+                                'lg:bg-transparent dark:lg:bg-transparent bg-gray-100 dark:bg-gray-800' : ''"
                             class="z-99999 flex h-10 w-10 items-center justify-center rounded-lg border-gray-200 text-gray-500 lg:h-11 lg:w-11 lg:border dark:border-gray-800 dark:text-gray-400"
                             @click.stop="sidebarToggle = !sidebarToggle">
-                            <svg class="hidden fill-current lg:block" width="16" height="12"
-                                viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg class="hidden fill-current lg:block" width="16" height="12" viewBox="0 0 16 12"
+                                fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                     d="M0.583252 1C0.583252 0.585788 0.919038 0.25 1.33325 0.25H14.6666C15.0808 0.25 15.4166 0.585786 15.4166 1C15.4166 1.41421 15.0808 1.75 14.6666 1.75L1.33325 1.75C0.919038 1.75 0.583252 1.41422 0.583252 1ZM0.583252 11C0.583252 10.5858 0.919038 10.25 1.33325 10.25L14.6666 10.25C15.0808 10.25 15.4166 10.5858 15.4166 11C15.4166 11.4142 15.0808 11.75 14.6666 11.75L1.33325 11.75C0.919038 11.75 0.583252 11.4142 0.583252 11ZM1.33325 5.25C0.919038 5.25 0.583252 5.58579 0.583252 6C0.583252 6.41421 0.919038 6.75 1.33325 6.75L7.99992 6.75C8.41413 6.75 8.74992 6.41421 8.74992 6C8.74992 5.58579 8.41413 5.25 7.99992 5.25L1.33325 5.25Z"
                                     fill="" />
@@ -294,7 +178,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                         </button>
                         <!-- Hamburger Toggle BTN -->
 
-                        <a href="{{ route('dashboard') }}" class="lg:hidden">
+                        <a href="{{ route('admin') }}" class="lg:hidden">
                             <img class="dark:hidden" src="src/images/logo/logo.svg" alt="Logo" />
                             <img class="hidden dark:block" src="src/images/logo/logo-dark.svg" alt="Logo" />
                         </a>
@@ -343,7 +227,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                             <!-- Dark Mode Toggler -->
                             <button
                                 class="hover:text-dark-900 relative flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
-                                @click.prevent="darkMode = !darkMode; localStorage.setItem('darkMode', darkMode ? 'true' : 'false')">
+                                @click.prevent="darkMode = !darkMode">
                                 <svg class="hidden dark:block" width="20" height="20" viewBox="0 0 20 20"
                                     fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -415,8 +299,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                                                         <span
                                                             class="font-medium text-gray-800 dark:text-white/90">Terry
                                                             Franci</span>
-                                                        requests permission to
-                                                        change
+                                                        requests permission to change
                                                         <span
                                                             class="font-medium text-gray-800 dark:text-white/90">Project
                                                             - Nganter App</span>
@@ -448,8 +331,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                                                         <span
                                                             class="font-medium text-gray-800 dark:text-white/90">Alena
                                                             Franci</span>
-                                                        requests permission to
-                                                        change
+                                                        requests permission to change
                                                         <span
                                                             class="font-medium text-gray-800 dark:text-white/90">Project
                                                             - Nganter App</span>
@@ -481,8 +363,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                                                         <span
                                                             class="font-medium text-gray-800 dark:text-white/90">Jocelyn
                                                             Kenter</span>
-                                                        requests permission to
-                                                        change
+                                                        requests permission to change
                                                         <span
                                                             class="font-medium text-gray-800 dark:text-white/90">Project
                                                             - Nganter App</span>
@@ -514,8 +395,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                                                         <span
                                                             class="font-medium text-gray-800 dark:text-white/90">Brandon
                                                             Philips</span>
-                                                        requests permission to
-                                                        change
+                                                        requests permission to change
                                                         <span
                                                             class="font-medium text-gray-800 dark:text-white/90">Project
                                                             - Nganter App</span>
@@ -547,8 +427,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                                                         <span
                                                             class="font-medium text-gray-800 dark:text-white/90">Terry
                                                             Franci</span>
-                                                        requests permission to
-                                                        change
+                                                        requests permission to change
                                                         <span
                                                             class="font-medium text-gray-800 dark:text-white/90">Project
                                                             - Nganter App</span>
@@ -580,8 +459,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                                                         <span
                                                             class="font-medium text-gray-800 dark:text-white/90">Alena
                                                             Franci</span>
-                                                        requests permission to
-                                                        change
+                                                        requests permission to change
                                                         <span
                                                             class="font-medium text-gray-800 dark:text-white/90">Project
                                                             - Nganter App</span>
@@ -613,8 +491,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                                                         <span
                                                             class="font-medium text-gray-800 dark:text-white/90">Jocelyn
                                                             Kenter</span>
-                                                        requests permission to
-                                                        change
+                                                        requests permission to change
                                                         <span
                                                             class="font-medium text-gray-800 dark:text-white/90">Project
                                                             - Nganter App</span>
@@ -646,8 +523,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                                                         <span
                                                             class="font-medium text-gray-800 dark:text-white/90">Brandon
                                                             Philips</span>
-                                                        requests permission to
-                                                        change
+                                                        requests permission to change
                                                         <span
                                                             class="font-medium text-gray-800 dark:text-white/90">Project
                                                             - Nganter App</span>
@@ -700,8 +576,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                                 class="shadow-theme-lg dark:bg-gray-dark absolute right-0 mt-[17px] flex w-[260px] flex-col rounded-2xl border border-gray-200 bg-white p-3 dark:border-gray-800">
                                 <div>
                                     <span class="text-theme-sm block font-medium text-gray-700 dark:text-gray-400">
-                                        {{ auth()->user()->first_name }}
-                                        {{ auth()->user()->last_name }}
+                                        {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
                                     </span>
                                     <span class="text-theme-xs mt-0.5 block text-gray-500 dark:text-gray-400">
                                         {{ auth()->user()->email }}
@@ -723,29 +598,6 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                                             Edit profile
                                         </a>
                                     </li>
-                                    @if (auth()->user()->role === 'admin')
-                                        <li>
-                                            <a href="{{ route('admin') }}"
-                                                class="group text-theme-sm flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300">
-                                                <svg class="fill-gray-500 group-hover:fill-gray-700 dark:fill-gray-400 dark:group-hover:fill-gray-300"
-                                                    width="24" height="24" viewBox="0 0 24 24"
-                                                    xmlns="http://www.w3.org/2000/svg" fill="#000000">
-                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
-                                                        stroke-linejoin="round"></g>
-                                                    <g id="SVGRepo_iconCarrier">
-                                                        <g>
-                                                            <path fill="none" d="M0 0h24v24H0z"></path>
-                                                            <path
-                                                                d="M12 14v8H4a8 8 0 0 1 8-8zm0-1c-3.315 0-6-2.685-6-6s2.685-6 6-6 6 2.685 6 6-2.685 6-6 6zm9 4h1v5h-8v-5h1v-1a3 3 0 0 1 6 0v1zm-2 0v-1a1 1 0 0 0-2 0v1h2z">
-                                                            </path>
-                                                        </g>
-                                                    </g>
-                                                </svg>
-                                                Admin Panel
-                                            </a>
-                                        </li>
-                                    @endif
                                 </ul>
                                 <a href="{{ route('logout') }}"
                                     class="group text-theme-sm mt-3 flex items-center gap-3 rounded-lg px-3 py-2 font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300">
@@ -770,7 +622,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
 
             <!-- ===== Main Content Start ===== -->
             <main>
-                <div class="mx-auto max-w-(--breakpoint-2xl) p-4 md:p-6 text-black dark:text-white">
+                <div class="mx-auto max-w-(--breakpoint-2xl) p-4 md:p-6">
                     <!-- Breadcrumb Start -->
                     <div x-data="{ pageName: `@yield('pageName')` }">
                         <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
@@ -781,7 +633,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                                 <ol class="flex items-center gap-1.5">
                                     <li>
                                         <a class="inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400"
-                                            href="{{ route('dashboard') }}">
+                                            href="{{ route('admin') }}">
                                             @yield('breadcrumb')
                                             <svg class="stroke-current" width="17" height="16"
                                                 viewBox="0 0 17 16" fill="none"
@@ -798,6 +650,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                         </div>
                     </div>
                     <!-- Breadcrumb End -->
+                    @include('components.tailadmin.validation-errors')
                     @yield('content')
                     <div></div>
                 </div>
@@ -809,7 +662,6 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
 
     @yield('modals')
     @yield('scripts')
-    @vite(['resources/js/app.js'])
     <!-- ===== Page Wrapper End ===== -->
     <script defer src="{{ asset('tailadmin/bundle.js') }}"></script>
 </body>
