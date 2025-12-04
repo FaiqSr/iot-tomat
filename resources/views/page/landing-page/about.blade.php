@@ -65,17 +65,22 @@
     <section class="py-16 bg-white">
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-3xl font-bold text-[#4F6F8F] mb-8">Tim Pengembang</h2>
-
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
-                @foreach ([['nama' => 'M. Faiq', 'role' => 'Backend & System Architect'], ['nama' => 'Khoirul Anwar', 'role' => 'IoT Hardware Engineer'], ['nama' => 'Fajar Ramadhan', 'role' => 'Machine Learning Specialist'], ['nama' => 'David', 'role' => 'Mobile Developer'], ['nama' => 'Fauzan', 'role' => 'Frontend Developer'], ['nama' => 'Rama', 'role' => 'Research & Documentation']] as $member)
-                    <div class="p-2 rounded-sm shadow-lg bg-[#F5F6F7] border border-[#E3E8EE] w-[300px] h-[420px] mx-auto">
-                        <section class="w-full mb-2">
-                            <img src="https://picsum.photos/254/300" alt="" class="object-cover w-full h-full">
-                        </section>
-                        <h4 class="text-xl font-semibold text-[#4F6F8F]">{{ $member['nama'] }}</h4>
-                        <p class="text-gray-600">{{ $member['role'] }}</p>
-                    </div>
-                @endforeach
+                <div class="p-2 rounded-sm shadow-lg bg-[#F5F6F7] border border-[#E3E8EE] w-[300px] h-[200px] mx-auto">
+                    <section class="w-full mb-2">
+                        <img src="{{ url('/images/kelompok/arif.jpeg') }}" alt=""
+                            class="object-cover w-full h-full">
+                    </section>
+                    <h4 class="text-xl font-semibold text-[#4F6F8F]">Arif Sanda</h4>
+                    <p class="text-gray-600">Web Developer</p>
+                </div>
+                <div class="p-2 rounded-sm shadow-lg bg-[#F5F6F7] border border-[#E3E8EE] w-[300px] h-[200px] mx-auto">
+                    <section class="w-full mb-2 h-[100px]">
+                        <img src="{{ url('/images/kelompok/fad.jpg') }}" alt="" class="object-cover w-full h-full">
+                    </section>
+                    <h4 class="text-xl font-semibold text-[#4F6F8F]">Fadhil Alfaruqj</h4>
+                    <p class="text-gray-600">3D Developer</p>
+                </div>
             </div>
         </div>
     </section>

@@ -283,18 +283,24 @@
 @section('scripts')
     {{-- Import Socket.IO Client --}}
     <script type="module">
-        @php
-            $mlPredictUrlRf = env('ML_PREDICT_URL_RF', 'http://127.0.0.1:5000/predict_rf');
-        @endphp
-
         import {
             io
         } from "https://cdn.socket.io/4.7.2/socket.io.esm.min.js";
 
+        // Read ML predict URL from Vite env if available, otherwise fall back to Laravel .env
+        const mlPredictUrlRf = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env
+                .VITE_ML_PREDICT_URL_RF) ?
+            import.meta.env.VITE_ML_PREDICT_URL_RF :
+            "{{ env('ML_PREDICT_URL_RF', 'http://127.0.0.1:5000/predict_rf') }}";
+        const mlPredictUrl = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env
+                .VITE_ML_PREDICT_URL_RF) ?
+            import.meta.env.VITE_ML_PREDICT_URL_RF :
+            "{{ env('ML_PREDICT_URL', 'http://127.0.0.1:5000/predict') }}";
+
         // --- ALPINE JS COMPONENT FOR YOLO VIEWER ---
         document.addEventListener('alpine:init', () => {
             Alpine.data('yoloViewer', () => ({
-                serverUrl: '{{ $mlPredictUrlRf }}', // Ganti dengan URL Flask Server Anda
+                serverUrl: mlPredictUrl, // Ganti dengan URL Flask Server Anda
                 deviceId: '', // will be set from selected sensor radio
                 status: 'disconnected',
                 annotatedSrc: null,
@@ -418,7 +424,7 @@
 
             try {
 
-                const response = await fetch('/predict_rf', {
+                const response = await fetch('/api/predict', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

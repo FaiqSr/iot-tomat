@@ -25,7 +25,7 @@ class PredictController extends Controller
 
         $features = $data['features'];
 
-        $mlUrl = env('ML_PREDICT_URL') ?: env('PREDICT_URL');
+        $mlUrl = env('ML_PREDICT_URL_RF') ?: env('PREDICT_URL');
         if (!$mlUrl) {
             return response()->json(['error' => 'ML_PREDICT_URL not configured in environment'], 500);
         }
